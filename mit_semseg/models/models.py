@@ -494,7 +494,15 @@ class PPMDeepsup(nn.Module):
 
         return (x, _)
 
+class InterPooling(nn.Module):
+    def __init__(self, scale, mode='nearest'):
+        super(InterPooling, self).__init__()
+        self.scale = scale
+        self.mode = mode
 
+    def forward(X):
+        return nn.functional.interpolate(X, self.scale, mode=self.mode)
+    
 # upernet
 class UPerNet(nn.Module):
     def __init__(self, num_class=150, fc_dim=4096,
@@ -508,7 +516,8 @@ class UPerNet(nn.Module):
         self.ppm_conv = []
 
         for scale in pool_scales:
-            self.ppm_pooling.append(nn.AdaptiveAvgPool2d(scale))
+#             self.ppm_pooling.append(nn.AdaptiveAvgPool2d(scale))
+            self.ppm_pooling.append(InterPooling(scale))
             self.ppm_conv.append(nn.Sequential(
                 nn.Conv2d(fc_dim, 512, kernel_size=1, bias=False),
                 BatchNorm2d(512),
