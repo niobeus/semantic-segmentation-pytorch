@@ -500,7 +500,7 @@ class InterPooling(nn.Module):
         self.scale = scale
         self.mode = mode
 
-    def forward(X):
+    def forward(self, X):
         return nn.functional.interpolate(X, self.scale, mode=self.mode)
     
 # upernet
