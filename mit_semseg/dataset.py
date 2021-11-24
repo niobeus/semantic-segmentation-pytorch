@@ -136,8 +136,12 @@ class TrainDataset(BaseDataset):
             batch_heights[i] = img_height * this_scale
 
         # Here we must pad both input image and segmentation map to size h' and w' so that p | h' and p | w'
-        batch_width = np.max(batch_widths)
-        batch_height = np.max(batch_heights)
+        # batch_width = np.max(batch_widths)
+        # batch_height = np.max(batch_heights)
+        
+        batch_height = 570
+        batch_width = 570
+        
         batch_width = int(self.round2nearest_multiple(batch_width, self.padding_constant))
         batch_height = int(self.round2nearest_multiple(batch_height, self.padding_constant))
 
@@ -169,8 +173,11 @@ class TrainDataset(BaseDataset):
                 segm = segm.transpose(Image.FLIP_LEFT_RIGHT)
 
             # note that each sample within a mini batch has different scale param
-            img = imresize(img, (batch_widths[i], batch_heights[i]), interp='bilinear')
-            segm = imresize(segm, (batch_widths[i], batch_heights[i]), interp='nearest')
+            # img = imresize(img, (batch_widths[i], batch_heights[i]), interp='bilinear')
+            # segm = imresize(segm, (batch_widths[i], batch_heights[i]), interp='nearest')
+            
+            img = imresize(img, (batch_width, batch_height), interp='bilinear')
+            segm = imresize(segm, (batch_width, batch_height), interp='nearest')
 
             # further downsample seg label, need to avoid seg label misalignment
             segm_rounded_width = self.round2nearest_multiple(segm.size[0], self.segm_downsampling_rate)
