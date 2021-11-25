@@ -18,11 +18,11 @@ if [ ! -e $MODEL_PATH ]; then
 fi
 if [ ! -e $ENCODER ]; then
   # wget -P $MODEL_PATH http://sceneparsing.csail.mit.edu/model/pytorch/$ENCODER
-  wget -P $MODEL_PATH https://vk.com/doc166590718_619850441
+  wget -O $MODEL_PATH/encoder_epoch_2.pth https://vk.com/doc166590718_619850441
 fi
 if [ ! -e $DECODER ]; then
   # wget -P $MODEL_PATH http://sceneparsing.csail.mit.edu/model/pytorch/$DECODER
-  wget -P $MODEL_PATH https://vk.com/doc166590718_619850891
+  wget -O $MODEL_PATH/decoder_epoch_2.pth https://vk.com/doc166590718_619850891
 fi
 # if [ ! -e $TEST_IMG ]; then
 #   wget -P $RESULT_PATH http://sceneparsing.csail.mit.edu/data/ADEChallengeData2016/images/validation/$TEST_IMG
